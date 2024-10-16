@@ -25,7 +25,7 @@ class Gasto(Base):
     id=Column(Integer, primary_key=True,autoincrement=True)
     descripcion=Column(String(150))
     categoria=Column(String(50))
-    valor=Column(float)
+    valor=Column(Float)
     fecha=Column(Date)
 
 class Categoria(Base):
