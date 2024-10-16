@@ -14,8 +14,6 @@ app = FastAPI()
 
 #activar el api
 @app.get("/")
-async def root():
-    return {"message": "Gestor de Ventas"}
 def main():
     return RedirectResponse(url="docs")
 
