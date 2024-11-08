@@ -1,64 +1,73 @@
-from pydantic import BaseModel,Field
+from pydantic import BaseModel, Field
 from datetime import datetime
 
-#los DTOS son clases que establecen el modelo de tranferencia de dstos
+
 class UsuarioDTOPeticiones(BaseModel):
-    nombres:str
-    fechaNacimiento:datetime
-    ubicacion:str
-    metaAhorro:float
+    nombres: str
+    fechaNacimiento: datetime
+    ubicacion: str
+    metaAhorro: float
+
     class Config:
-        orm_mode=True
+        orm_mode = True
 
 class UsuarioDTORespuestas(BaseModel):
-    id:int
+    id: int
     nombres: str
-    metaAorro:float
+    metaAhorro: float
     class Config:
-        orm_mode=True
+        orm_mode = True
 
 class GastoDTOPeticiones(BaseModel):
-    descripcion:str
-    categoria:str
-    valor:float
-    fecha:datetime
-    class Config:
-        orm_mode=True
+    descripcion: str
+    categoria: str
+    valor: float
+    fecha: datetime
 
-class GastosDOTORespuestas(BaseModel):
-    descripcion:str
-    categoria:str
-    valor:float
-    fecha:datetime
     class Config:
-        orm_mode=True
+        orm_mode = True
+
+class GastoDTORespuestas(BaseModel):
+    id: int
+    descripcion: str
+    categoria: str
+    valor: float
+
+    class Config:
+        orm_mode = True
 
 class CategoriaDTOPeticiones(BaseModel):
-    nombre:str
-    descripcion:str
-    fotoCategoria:str
+    nombre: str
+    descripcion: str
+    fotoCategoria: str
+    fecha: datetime
+
+
     class Config:
-        orm_mode=True
+        orm_mode = True
 
 class CategoriaDTORespuestas(BaseModel):
-    id:str
-    nombre:str
-    descripcion:str
-    fotoCategoria:str
+    id: int
+    nombre: str
+    descripcion: str
+    fotoCategoria: str
+
     class Config:
-        orm_mode=True
+        orm_mode = True
 
 class IngresoDTOPeticiones(BaseModel):
-    valor:float
-    categoria:str
-    fecha:datetime
+    valor: float
+    descripcion: str
+    fecha: datetime
+
     class Config:
-        orm_mode=True
+        orm_mode = True
 
 class IngresoDTORespuestas(BaseModel):
-    id:int
-    valor:float
-    categoria:str
-    fecha:datetime
+    id: int
+    valor: float
+    descripcion: str
+    fecha: datetime
+
     class Config:
-        orm_mode=True
+        orm_mode = True
