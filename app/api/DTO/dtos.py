@@ -2,6 +2,36 @@ from pydantic import BaseModel, Field
 from datetime import datetime
 
 
+class LoginDTOPeticiones(BaseModel):
+    correo: str
+    contrasena: str
+    nombres: str
+    class Config:
+        orm_mode = True
+
+class LoginDTORespuestas(BaseModel):
+    id: int
+    correo: str
+    contrasena: str
+    nombres: str
+    class Config:
+        orm_mode = True
+
+class RegistroDTOPeticiones(BaseModel):
+    correo: str
+    contrasena: str
+    nombres: str
+    class Config:
+        orm_mode = True
+
+class RegistroDTORespuestas(BaseModel):
+    id: int
+    correo: str
+    contrasena: str
+    nombres: str
+    class Config:
+        orm_mode = True
+
 class UsuarioDTOPeticiones(BaseModel):
     nombres: str
     fechaNacimiento: datetime

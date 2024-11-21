@@ -5,9 +5,11 @@ from fastapi.params import Depends
 from app.api.DTO.dtos import (UsuarioDTOPeticiones, UsuarioDTORespuestas, 
                               GastoDTOPeticiones, GastoDTORespuestas, 
                               CategoriaDTOPeticiones, CategoriaDTORespuestas, 
-                              IngresoDTOPeticiones, IngresoDTORespuestas)
+                              IngresoDTOPeticiones, IngresoDTORespuestas,
+                              LoginDTOPeticiones, LoginDTORespuestas,
+                              RegistroDTOPeticiones, RegistroDTORespuestas,)
 
-from app.api.models.TablasSQL import Usuario, Gasto, Categoria, Ingreso
+from app.api.models.TablasSQL import Usuario, Gasto, Categoria, Ingreso, Login, Registro
 from app.database.configuration import SessionLocal
 
 rutas = APIRouter()
@@ -22,6 +24,62 @@ def conectarConBd():
         raise error
     finally:
         baseDatos.close()
+
+# Servicio para logear
+@rutas.post("/login", response_model=LoginDTORespuestas, summary="Logear un usuario en la base de datos")
+def guardarUsuario(datosLogin: LoginDTOPeticiones, dataBase: Session = Depends(conectarConBd)):
+    try:
+        login = Login(
+            correo=datosLogin.correo,
+            contrasena=datosLogin.contrasena,
+            nombres=datosLogin.nombres,
+
+        )
+        dataBase.add(login)
+        dataBase.commit()
+        dataBase.refresh(login)
+        return login  # Retornar el modelo `loginDTORespuestas`
+    except Exception as error:
+        dataBase.rollback()
+        raise HTTPException(status_code=400, detail=f"Tenemos un problema: {error}")
+
+# Servicio para buscar todos los usuarios
+@rutas.get("/login", response_model=List[LoginDTORespuestas], summary="Buscar todos los usuarios logeados en la base de datos")
+def buscarUsuarios(dataBase: Session = Depends(conectarConBd)):
+    try:
+        login = dataBase.query(Login).all()
+        return login
+    except Exception as error:
+        dataBase.rollback()
+        raise HTTPException(status_code=400, detail=f"Tenemos un problema: {error}")
+
+# Servicio para Registro
+@rutas.post("/registro", response_model=RegistroDTORespuestas, summary="Logear un usuario en la base de datos")
+def guardarUsuario(datosRegistro: RegistroDTOPeticiones, dataBase: Session = Depends(conectarConBd)):
+    try:
+        login = Registro(
+            correo=datosRegistro.correo,
+            contrasena=datosRegistro.contrasena,
+            nombres=datosRegistro.nombres,
+
+        )
+        dataBase.add(registro)
+        dataBase.commit()
+        dataBase.refresh(registro)
+        return Registro  # Retornar el modelo `loginDTORespuestas`
+    except Exception as error:
+        dataBase.rollback()
+        raise HTTPException(status_code=400, detail=f"Tenemos un problema: {error}")
+
+# Servicio para buscar todos los usuarios
+@rutas.get("/registro", response_model=List[RegistroDTORespuestas], summary="Buscar todos los usuarios logeados en la base de datos")
+def buscarUsuarios(dataBase: Session = Depends(conectarConBd)):
+    try:
+        login = dataBase.query(Registro).all()
+        return login
+    except Exception as error:
+        dataBase.rollback()
+        raise HTTPException(status_code=400, detail=f"Tenemos un problema: {error}")
 
 # Servicio para registrar usuario
 @rutas.post("/usuario", response_model=UsuarioDTORespuestas, summary="Registrar un usuario en la base de datos")

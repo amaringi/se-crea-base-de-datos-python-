@@ -1,6 +1,4 @@
 from sqlalchemy import Column, Integer, String, Float, Date
-
-
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 #llamado a la base para crear tabla
@@ -10,6 +8,20 @@ Base=declarative_base()
 #definir las tablas de mi  modelo 
 
 #usuario
+
+class Login(Base):
+    __tablename__='login'
+    id=Column(Integer, primary_key=True, autoincrement=True)
+    correo=Column(String(50))
+    contrasena=Column(String(50))
+    nombres=Column(String(50))
+
+class Registro(Base):
+    __tablename__='registro'
+    id=Column(Integer, primary_key=True, autoincrement=True)
+    correo=Column(String(50))
+    contrasena=Column(String(50))
+    nombres=Column(String(50))
 
 class Usuario(Base):
     __tablename__='Usuario'
