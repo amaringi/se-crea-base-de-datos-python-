@@ -12,16 +12,16 @@ Base=declarative_base()
 class Login(Base):
     __tablename__='login'
     id=Column(Integer, primary_key=True, autoincrement=True)
+    nombres=Column(String(50))
     correo=Column(String(50))
     contrasena=Column(String(50))
-    nombres=Column(String(50))
 
 class Registro(Base):
     __tablename__='registro'
     id=Column(Integer, primary_key=True, autoincrement=True)
+    nombres=Column(String(50))
     correo=Column(String(50))
     contrasena=Column(String(50))
-    nombres=Column(String(50))
 
 class Usuario(Base):
     __tablename__='Usuario'

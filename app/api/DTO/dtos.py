@@ -18,9 +18,9 @@ class LoginDTORespuestas(BaseModel):
         orm_mode = True
 
 class RegistroDTOPeticiones(BaseModel):
+    nombres: str
     correo: str
     contrasena: str
-    nombres: str
     class Config:
         orm_mode = True
 

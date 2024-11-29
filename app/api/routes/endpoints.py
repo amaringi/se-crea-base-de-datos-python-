@@ -30,9 +30,9 @@ def conectarConBd():
 def guardarUsuario(datosLogin: LoginDTOPeticiones, dataBase: Session = Depends(conectarConBd)):
     try:
         login = Login(
+            nombres=datosLogin.nombres,
             correo=datosLogin.correo,
             contrasena=datosLogin.contrasena,
-            nombres=datosLogin.nombres,
 
         )
         dataBase.add(login)
@@ -57,10 +57,10 @@ def buscarUsuarios(dataBase: Session = Depends(conectarConBd)):
 @rutas.post("/registro", response_model=RegistroDTORespuestas, summary="Logear un usuario en la base de datos")
 def guardarUsuario(datosRegistro: RegistroDTOPeticiones, dataBase: Session = Depends(conectarConBd)):
     try:
-        login = Registro(
+        registro = Registro(
+            nombres=datosRegistro.nombres,
             correo=datosRegistro.correo,
             contrasena=datosRegistro.contrasena,
-            nombres=datosRegistro.nombres,
 
         )
         dataBase.add(registro)
